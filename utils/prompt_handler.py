@@ -110,7 +110,7 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
                 
             Getting Started:
                 Provide instructions for prerequisites, installation steps, and how to run the project.
-                This section make a bash commands. 
+                This section make a separated bash commands. 
 
             Project Roadmap:
                 Outline future plans for the project.
@@ -197,7 +197,7 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
             
         Getting Started:
             Provide instructions for prerequisites, installation steps, and how to run the project.
-            This section make a bash commands. 
+            This section make a separated bash commands. 
 
         Project Roadmap:
             Outline future plans for the project.
