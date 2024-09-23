@@ -7,9 +7,9 @@ llm=get_llm()
 
 def extract_technologies(code_snippet):
     extract_technologies_prompt_template="""
-        You are a code analysis assistant. Your task is to examine the provided code snippet and identify the most used technologies used within it.
-        Analyze the following code snippet to identify the technologies and frameworks used. 
-        Do not summarize the code itself. Instead, provide a list of the technologies.
+        You are a code analysis assistant. Your task is to examine the provided code snippet and identify the most used languages and frameworks used within it.
+        Analyze the following code snippet to identify the languages and frameworks used. 
+        Do not summarize the code itself. Instead, provide a list of the languages and frameworks.
         
         Code Snippet: {CODE_SNIPPET}
             
@@ -34,12 +34,12 @@ def extract_technologies(code_snippet):
 
 def get_technology_set(list_of_technologies):
     get_technology_set_prompt_template="""
-        You are a code analysis assistant. Your task is to examine the provided technology list and identify the final technologies used within it.
-        I have a list of technologies mentioned below. Identify all the technologies that have been used or are relevant in this context:
+        You are a code analysis assistant. Your task is to examine the provided list and identify the final languages and frameworks used within it.
+        I have a list of languages and frameworks mentioned below. Identify all the languages and frameworks that have been used or are relevant in this context:
 
         {LIST_OF_TECHNOLOGIES}
 
-        Please provide the names of the technologies from the list."
+        Please provide the names of the languages and frameworks from the list."
             
         Response Format:
             [List of technologies]
