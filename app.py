@@ -49,16 +49,13 @@ if generated_readme !="":
         st.markdown(generated_readme, unsafe_allow_html=True)
     
     with st.expander("Copy Markdown : "):
-        st.write(generated_readme)
+        st.code(generated_readme, language="markdown")
         
     with st.expander("Download Markdown : "):
         temp_dir=TemporaryDirectory()
         with temp_dir:
             file_name=os.path.join(temp_dir.name, "README.md")
-            with open(file_name, "rb") as readme_file:
-                readme_file.write(generated_readme)
-                st.download_button("Download README.md", data=readme_file)
-            
+            st.download_button("Download README.md", data=generated_readme,  file_name="README.md", mime="text/markdown")
 
 
 
