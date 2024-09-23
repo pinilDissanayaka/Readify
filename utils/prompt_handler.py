@@ -58,4 +58,90 @@ def get_technology_set(list_of_technologies):
     extract_technologies=extract_technologies_chain.invoke({"LIST_OF_TECHNOLOGIES": list_of_technologies})
     
     return extract_technologies
+
+
+def generate_readme(github_url):
+    readme_generate_prompt_template="""
+        You are an expert at creating professional GitHub README files. 
+        Generate a comprehensive README file for a GitHub project. 
+        Use the following structure and fill in the relevant sections based on the given information and 
+        the GitHub repository at the provided URL:
+
+        Title and Description:
+
+        Project Title
+            Brief description of the project and its purpose.
+        
+        Badges:
+            Include badges for license, last commit, top language, and language count.
+            make this badges with shields io icons.
+                
+        Built With:
+            List the technologies and tools used in the project with appropriate badges.
+            make this badges with shields io icons.
+        
+        Table of Contents:
+        Include a table of contents linking to the following sections:
+            Overview
+            Features
+            Repository Structure
+            Modules
+            Getting Started
+            Prerequisites
+            Installation
+            Usage
+            Tests
+            Project Roadmap
+            Contributing
+            License
+            Acknowledgments
+            
+        Overview:
+            Provide a brief overview of the project.
+        
+        Features:
+            Highlight key features of the project.
+            
+        Repository Structure:
+            Include a visual representation of the project structure.
+        
+        Modules:
+            List the main modules/files with a brief summary of their purpose.
+            
+        Getting Started:
+            Provide instructions for prerequisites, installation steps, and how to run the project.
+
+        Project Roadmap:
+            Outline future plans for the project.
+            
+        Contributing:
+            Explain how others can contribute to the project.
+            The section should include:
+                Report Issues: Instructions for users to submit bugs found or log feature requests.
+                Submit Pull Requests: Guidance on how to review open pull requests and submit their own.
+                Join the Discussions: Information on how users can participate in community discussions.
+            Make sure to include relevant links to the issue tracker, pull requests, and discussions pages of the repository.
+            Generate an HTML snippet to display the contributor tree for the GitHub repository at the given URL. 
+            Include an image that links to the repository's contributors page.
+            
+        License:
+            State the license under which the project is released.
+        
+        Acknowledgments:
+            Credit any resources, contributors, or inspirations.
+            
+        GitHub URL: {GITHUB_URL}
+    """
     
+    readme_generate_prompt=ChatPromptTemplate.from_template(template=readme_generate_prompt_template)
+    
+    readme_generate_chain=(
+        {"GITHUB_URL" : RunnablePassthrough()} |
+        readme_generate_prompt |
+        llm |
+        StrOutputParser()
+    )
+    
+    generated_readme=readme_generate_chain.invoke({"GITHUB_URL" : github_url})
+    
+    return generated_readme
