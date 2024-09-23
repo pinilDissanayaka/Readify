@@ -60,26 +60,113 @@ def get_technology_set(list_of_technologies):
     return extract_technologies
 
 
-def generate_readme(github_url):
-    readme_generate_prompt_template="""
+def generate_readme(github_url, technology_list, badge_color, badge_style, license_type, emoji_status):
+    if emoji_status:
+        readme_generate_prompt_template="""
+            You are an expert at creating professional GitHub README files. 
+            Generate a comprehensive README file for a GitHub project. 
+            Use the following structure and fill in the relevant sections based on the given information and 
+            the GitHub repository at the provided URL:
+
+            Title and Description:
+                Brief description of the project and its purpose.
+            
+            Badges:
+                Include badges for license, last commit, top language, and language count.
+                make this badges with shields.io icons and logos.
+                and use {BADGE_COLOR} as a badge color and {BADGE_STYLE} as a badge style.
+                    
+            Built With:
+                List the technologies and tools used in the project with appropriate badges.
+                used languages and frame works : {TECHNOLOGY_LIST}
+                make this badges with shields.io icons and logos. and use {BADGE_COLOR} as a badge color and {BADGE_STYLE} as a badge style.
+                
+            Table of Contents:
+            Include a table of contents linking to the following sections:
+                Overview
+                Features
+                Repository Structure
+                Modules
+                Getting Started
+                Prerequisites
+                Installation
+                Usage
+                Project Roadmap
+                Contributing
+                License
+                Acknowledgments
+                
+            Overview:
+                Provide a brief overview of the project.
+            
+            Features:
+                Highlight key features of the project.
+                
+            Repository Structure:
+                Include a visual representation of the project structure.
+            
+            Modules:
+                List the main modules/files with a brief summary of their purpose.
+                
+            Getting Started:
+                Provide instructions for prerequisites, installation steps, and how to run the project.
+
+            Project Roadmap:
+                Outline future plans for the project.
+                
+            Contributing:
+                Explain how others can contribute to the project.
+                The section should include:
+                    Report Issues: Instructions for users to submit bugs found or log feature requests.
+                    Submit Pull Requests: Guidance on how to review open pull requests and submit their own.
+                    Join the Discussions: Information on how users can participate in community discussions.
+                Make sure to include relevant links to the issue tracker, pull requests, and discussions pages of the repository.
+                Generate an HTML snippet to display the contributor tree for the GitHub repository at the given URL. 
+                Include an image that links to the repository's contributors page.
+                
+            License:
+                State the license under which the project is released.
+                {LICENSE_TYPE}
+            
+            Acknowledgments:
+                Credit any resources, contributors, or inspirations.
+                
+            GitHub URL: {GITHUB_URL}
+            
+            Finally make this readme file interactively using emoji at the many places.
+        """
+        
+        readme_generate_prompt=ChatPromptTemplate.from_template(template=readme_generate_prompt_template)
+        
+        readme_generate_chain=(
+            {"GITHUB_URL" : RunnablePassthrough(), "TECHNOLOGY_LIST" : RunnablePassthrough(), "BADGE_COLOR": RunnablePassthrough(), "BADGE_STYLE": RunnablePassthrough(), "LICENSE_TYPE": RunnablePassthrough()} |
+            readme_generate_prompt |
+            llm |
+            StrOutputParser()
+        )
+        
+        generated_readme=readme_generate_chain.invoke({"GITHUB_URL" : github_url, "TECHNOLOGY_LIST": technology_list, "BADGE_COLOR" :badge_color, "BADGE_STYLE":badge_style, "LICENSE_TYPE" : license_type})
+    
+    else:
+        readme_generate_prompt_template="""
         You are an expert at creating professional GitHub README files. 
         Generate a comprehensive README file for a GitHub project. 
         Use the following structure and fill in the relevant sections based on the given information and 
         the GitHub repository at the provided URL:
 
         Title and Description:
-
-        Project Title
             Brief description of the project and its purpose.
         
         Badges:
             Include badges for license, last commit, top language, and language count.
-            make this badges with shields io icons.
+            make this badges with shields.io icons and logos.
+            and use {BADGE_COLOR} as a badge color and {BADGE_STYLE} as a badge style.
                 
         Built With:
             List the technologies and tools used in the project with appropriate badges.
-            make this badges with shields io icons.
-        
+            used languages and frame works : {TECHNOLOGY_LIST}
+            make this badges with shields.io icons and logos. and use {BADGE_COLOR} as a badge color and {BADGE_STYLE} as a badge style.
+            
         Table of Contents:
         Include a table of contents linking to the following sections:
             Overview
@@ -90,7 +177,6 @@ def generate_readme(github_url):
             Prerequisites
             Installation
             Usage
-            Tests
             Project Roadmap
             Contributing
             License
@@ -126,22 +212,28 @@ def generate_readme(github_url):
             
         License:
             State the license under which the project is released.
+            {LICENSE_TYPE}
         
         Acknowledgments:
             Credit any resources, contributors, or inspirations.
             
         GitHub URL: {GITHUB_URL}
+        
+        Finally make this readme file interactively without using emoji.
     """
     
     readme_generate_prompt=ChatPromptTemplate.from_template(template=readme_generate_prompt_template)
     
     readme_generate_chain=(
-        {"GITHUB_URL" : RunnablePassthrough()} |
+        {"GITHUB_URL" : RunnablePassthrough(), "TECHNOLOGY_LIST" : RunnablePassthrough(), "BADGE_COLOR": RunnablePassthrough(), "BADGE_STYLE": RunnablePassthrough(), "LICENSE_TYPE": RunnablePassthrough()} |
         readme_generate_prompt |
         llm |
         StrOutputParser()
     )
     
-    generated_readme=readme_generate_chain.invoke({"GITHUB_URL" : github_url})
+    generated_readme=readme_generate_chain.invoke({"GITHUB_URL" : github_url, "TECHNOLOGY_LIST": technology_list, "BADGE_COLOR" :badge_color, "BADGE_STYLE":badge_style, "LICENSE_TYPE" : license_type})
     
     return generated_readme
+
+
+
