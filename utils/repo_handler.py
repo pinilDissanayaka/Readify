@@ -23,7 +23,7 @@ def summary_loaded_document(documents):
         code_summary=extract_technologies(code_snippet=document.page_content)
         code_summaries.append(code_summary)
         
-    return code_summary
+    return code_summaries
 
 
 
