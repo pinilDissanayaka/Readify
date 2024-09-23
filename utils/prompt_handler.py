@@ -60,7 +60,7 @@ def get_technology_set(list_of_technologies):
     return extract_technologies
 
 
-def generate_readme(github_url, technology_list, badge_color, badge_style, license_type, emoji_status):
+def generate_readme(github_url, technology_list, badge_color, badge_style, license_type, emoji_status, overview, features):
     if emoji_status:
         readme_generate_prompt_template="""
             You are an expert at creating professional GitHub README files. 
@@ -70,11 +70,11 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
 
             Title and Description:
                 Brief description of the project and its purpose.
-            
-            Badges:
-                Include badges for license, last commit, top language, and language count.
-                make this badges with shields.io icons and logos.
-                and use {BADGE_COLOR} as a badge color and {BADGE_STYLE} as a badge style.
+                {OVERVIEW}
+                
+            Include badges for license, last commit, top language, and language count.
+            make this badges with shields.io icons and logos.
+            and use {BADGE_COLOR} as a badge color and {BADGE_STYLE} as a badge style.
                     
             Built With:
                 List the technologies and tools used in the project with appropriate badges.
@@ -101,7 +101,8 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
             
             Features:
                 Highlight key features of the project.
-                
+                {FEATURES}
+            
             Repository Structure:
                 Include a visual representation of the project structure.
             
@@ -136,18 +137,6 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
             
             Finally make this readme file interactively using emoji at the many places.
         """
-        
-        readme_generate_prompt=ChatPromptTemplate.from_template(template=readme_generate_prompt_template)
-        
-        readme_generate_chain=(
-            {"GITHUB_URL" : RunnablePassthrough(), "TECHNOLOGY_LIST" : RunnablePassthrough(), "BADGE_COLOR": RunnablePassthrough(), "BADGE_STYLE": RunnablePassthrough(), "LICENSE_TYPE": RunnablePassthrough()} |
-            readme_generate_prompt |
-            llm |
-            StrOutputParser()
-        )
-        
-        generated_readme=readme_generate_chain.invoke({"GITHUB_URL" : github_url, "TECHNOLOGY_LIST": technology_list, "BADGE_COLOR" :badge_color, "BADGE_STYLE":badge_style, "LICENSE_TYPE" : license_type})
-    
     else:
         readme_generate_prompt_template="""
         You are an expert at creating professional GitHub README files. 
@@ -157,11 +146,11 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
 
         Title and Description:
             Brief description of the project and its purpose.
-        
-        Badges:
-            Include badges for license, last commit, top language, and language count.
-            make this badges with shields.io icons and logos.
-            and use {BADGE_COLOR} as a badge color and {BADGE_STYLE} as a badge style.
+            {OVERVIEW}
+            
+        Include badges for license, last commit, top language, and language count.
+        make this badges with shields.io icons and logos.
+        and use {BADGE_COLOR} as a badge color and {BADGE_STYLE} as a badge style.
                 
         Built With:
             List the technologies and tools used in the project with appropriate badges.
@@ -188,6 +177,7 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
         
         Features:
             Highlight key features of the project.
+            {FEATURES}
             
         Repository Structure:
             Include a visual representation of the project structure.
@@ -224,16 +214,17 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
         Finally make this readme file interactively without using emoji.
     """
     
-    readme_generate_prompt=ChatPromptTemplate.from_template(template=readme_generate_prompt_template)
     
+    readme_generate_prompt=ChatPromptTemplate.from_template(template=readme_generate_prompt_template)
+        
     readme_generate_chain=(
-        {"GITHUB_URL" : RunnablePassthrough(), "TECHNOLOGY_LIST" : RunnablePassthrough(), "BADGE_COLOR": RunnablePassthrough(), "BADGE_STYLE": RunnablePassthrough(), "LICENSE_TYPE": RunnablePassthrough()} |
+        {"GITHUB_URL" : RunnablePassthrough(), "TECHNOLOGY_LIST" : RunnablePassthrough(), "BADGE_COLOR": RunnablePassthrough(), "BADGE_STYLE": RunnablePassthrough(), "LICENSE_TYPE": RunnablePassthrough(), "OVERVIEW": RunnablePassthrough(), "FEATURES":RunnablePassthrough()} |
         readme_generate_prompt |
         llm |
         StrOutputParser()
     )
     
-    generated_readme=readme_generate_chain.invoke({"GITHUB_URL" : github_url, "TECHNOLOGY_LIST": technology_list, "BADGE_COLOR" :badge_color, "BADGE_STYLE":badge_style, "LICENSE_TYPE" : license_type})
+    generated_readme=readme_generate_chain.invoke({"GITHUB_URL" : github_url, "TECHNOLOGY_LIST": technology_list, "BADGE_COLOR" :badge_color, "BADGE_STYLE":badge_style, "LICENSE_TYPE" : license_type, "OVERVIEW":overview, "FEATURES": features})
     
     return generated_readme
 
