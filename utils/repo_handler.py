@@ -13,7 +13,7 @@ def clone_github_repo(github_url:str, local_path:str):
         return False
 
 def load_repo(local_path):
-    loaded_documents=DirectoryLoader(path=local_path, loader_cls=TextLoader, use_multithreading=True, silent_errors=True).load()
+    loaded_documents=DirectoryLoader(path=local_path, loader_cls=TextLoader, use_multithreading=True, silent_errors=True).load_and_split()
     
     return loaded_documents
 

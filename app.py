@@ -20,6 +20,3 @@ with st.sidebar:
             st.error("Unexpected Error Occurred ", icon="🚨")
 
 
-if code_summaries:  
-    st.write(code_summaries)
-
