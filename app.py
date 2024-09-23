@@ -29,7 +29,7 @@ with st.sidebar:
     
     overview=st.text_area("Brief description of the project and its purpose : ")
     
-    features=st.text_input("Brief description of the project features : ")
+    features=st.text_area("Brief description of the project features : ")
     
     
     
@@ -40,7 +40,7 @@ with st.sidebar:
                 clone_status=clone_github_repo(github_url=github_url, local_path=temp_directory.name)
                 if clone_status:
                     technology_list=summary_loaded_document(documents=load_repo(local_path=temp_directory.name))
-                    generated_readme=generate_readme(github_url=github_url, technology_list=technology_list, badge_color=badge_color, badge_style=badge_style, license_type=license_type, emoji_status=emoji_status)
+                    generated_readme=generate_readme(github_url=github_url, technology_list=technology_list, badge_color=badge_color, badge_style=badge_style, license_type=license_type, emoji_status=emoji_status, overview=overview, features=features)
             
 
 
