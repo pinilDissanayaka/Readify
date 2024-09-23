@@ -1,7 +1,7 @@
 import os
 import subprocess
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
-from utils.prompt_handler import extract_technologies
+from utils.prompt_handler import extract_technologies, get_technology_set
 
 
 def clone_github_repo(github_url:str, local_path:str):
@@ -18,12 +18,14 @@ def load_repo(local_path):
     return loaded_documents
 
 def summary_loaded_document(documents):
-    code_summaries=[]
+    list_of_technologies=[]
     for document in documents:
         code_summary=extract_technologies(code_snippet=document.page_content)
-        code_summaries.append(code_summary)
+        list_of_technologies.append(code_summary)
+    
+    technologies=get_technology_set(list_of_technologies=list_of_technologies)
         
-    return code_summaries
+    return technologies
 
 
 
