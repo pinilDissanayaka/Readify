@@ -6,6 +6,8 @@ from utils.prompt_handler import generate_readme
 
 generated_readme=""
 
+st.set_page_config(page_title="💬 📚 Readify ")
+
 st.title("📚 Readify ")
 st.title("Your Intelligent README Generator")
 
