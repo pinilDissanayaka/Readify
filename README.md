@@ -67,3 +67,10 @@ If you have any questions, suggestions, or feedback, feel free to reach out:
 
 ## 🙌 Acknowledgments
 Special thanks to the developers and open-source community that made this project possible. 💙
+
+## 📸 Screenshots
+![Screenshot 2024-09-23 225352](https://github.com/user-attachments/assets/5d24dc10-9f6e-4b13-ab3b-97361ee0ff8d)
+![Screenshot 2024-09-23 225403](https://github.com/user-attachments/assets/c51a7239-afb0-48b3-a1ad-256984ebc3a1)
+![Screenshot 2024-09-23 225416](https://github.com/user-attachments/assets/5945ef1c-e9dd-44bb-aece-43463deab91c)
+![Screenshot 2024-09-23 225429](https://github.com/user-attachments/assets/05669ba2-6066-49e8-8c3a-73157bf4b1c3)
+![Screenshot 2024-09-23 225443](https://github.com/user-attachments/assets/1b4221a9-9f48-42c3-97d1-5072ce925781)
