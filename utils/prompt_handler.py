@@ -7,7 +7,7 @@ llm=get_llm()
 
 def extract_technologies(code_snippet):
     extract_technologies_prompt_template="""
-        You are a code analysis assistant. Your task is to examine the provided code snippet and identify the technologies used within it.
+        You are a code analysis assistant. Your task is to examine the provided code snippet and identify the most used technologies used within it.
         Analyze the following code snippet to identify the technologies and frameworks used. 
         Do not summarize the code itself. Instead, provide a list of the technologies.
         
