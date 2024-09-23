@@ -69,12 +69,13 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
             the GitHub repository at the provided URL:
 
             Title and Description:
-                Brief description of the project and its purpose.
+                Make brief description of the project and its purpose from given overview:  
                 {OVERVIEW}
                 
-            Include badges for license, last commit, top language, and language count.
-            make this badges with shields.io icons and logos.
-            and use {BADGE_COLOR} as a badge color and {BADGE_STYLE} as a badge style.
+            Badges for License:
+                Include badges for license, last commit, top language, and language count.
+                make this badges with shields.io icons and logos.
+                and use {BADGE_COLOR} as a badge color and {BADGE_STYLE} as a badge style.
                     
             Built With:
                 List the technologies and tools used in the project with appropriate badges.
@@ -100,7 +101,7 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
                 Provide a brief overview of the project.
             
             Features:
-                Highlight key features of the project.
+                Make highlight key features of the project from given features:
                 {FEATURES}
             
             Repository Structure:
@@ -145,9 +146,10 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
         the GitHub repository at the provided URL:
 
         Title and Description:
-            Brief description of the project and its purpose.
+            make brief description of the project and its purpose from given overview:
             {OVERVIEW}
-            
+        
+        Badges for License:
         Include badges for license, last commit, top language, and language count.
         make this badges with shields.io icons and logos.
         and use {BADGE_COLOR} as a badge color and {BADGE_STYLE} as a badge style.
@@ -176,7 +178,7 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
             Provide a brief overview of the project.
         
         Features:
-            Highlight key features of the project.
+            Make highlight key features of the project from given features:
             {FEATURES}
             
         Repository Structure:
