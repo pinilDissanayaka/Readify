@@ -11,12 +11,13 @@ with st.sidebar:
     
     temp_directory=TemporaryDirectory()
     
-    with temp_directory:
-        clone_status=clone_github_repo(github_url=repo_url, local_path=temp_directory.name)
-        if clone_status:
-            loaded_repo_data=load_repo(local_path=temp_directory.name)
-            code_summaries=summary_loaded_document(documents=loaded_repo_data)
-        else:
-            st.error("Unexpected Error Occurred ", icon="🚨")
+    if st.button("Generate"):
+        with temp_directory:
+            clone_status=clone_github_repo(github_url=repo_url, local_path=temp_directory.name)
+            if clone_status:
+                loaded_repo_data=load_repo(local_path=temp_directory.name)
+                code_summaries=summary_loaded_document(documents=loaded_repo_data)
+            else:
+                st.error("Unexpected Error Occurred ", icon="🚨")
 
 
