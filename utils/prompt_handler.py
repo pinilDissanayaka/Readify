@@ -5,7 +5,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 llm=get_llm()
 
-def extract_technologies_node(code_snippet):
+def extract_technologies(code_snippet):
     extract_technologies_prompt_template="""
         You are a code analysis assistant. Your task is to examine the provided code snippet and identify the most used languages and frameworks used within it.
         Analyze the following code snippet to identify the languages and frameworks used. 
