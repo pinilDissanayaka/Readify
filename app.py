@@ -41,8 +41,10 @@ with st.sidebar:
                 clone_status=clone_github_repo(github_url=github_url, local_path=temp_directory.name)
                 if clone_status:
                     technology_list=summary_loaded_document(documents=load_repo(local_path=temp_directory.name))
-                    generated_readme=generate_readme(github_url=github_url, technology_list=technology_list, badge_color=badge_color, badge_style=badge_style, license_type=license_type, emoji_status=emoji_status, overview=overview, features=features)
+                    
                     file_structure=get_file_structure_dict(root_dir=temp_directory.name)
+                    
+                    generated_readme=generate_readme(github_url=github_url, technology_list=technology_list, badge_color=badge_color, badge_style=badge_style, license_type=license_type, emoji_status=emoji_status, overview=overview, features=features, file_structure=file_structure)
 
 
 if generated_readme !="":
