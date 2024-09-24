@@ -5,7 +5,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 llm=get_llm()
 
-def extract_technologies(code_snippet):
+def extract_technologies_node(code_snippet):
     extract_technologies_prompt_template="""
         You are a code analysis assistant. Your task is to examine the provided code snippet and identify the most used languages and frameworks used within it.
         Analyze the following code snippet to identify the languages and frameworks used. 
@@ -69,8 +69,7 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
             the GitHub repository at the provided URL:
 
             Title and Description:
-                Make brief description of the project and its purpose from given overview:  
-                {OVERVIEW}
+                make detailed description for the project and its purpose from given overview: {OVERVIEW}
                 
             Badges for License:
                 Include badges for license, last commit, top language, and language count.
@@ -101,8 +100,7 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
                 Provide a brief overview of the project.
             
             Features:
-                Make highlight key features of the project from given features:
-                {FEATURES}
+                Make detailed description of highlight key features of the project from given features: {FEATURES}
             
             Repository Structure:
                 Include a visual representation of the project structure.
@@ -146,8 +144,7 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
         the GitHub repository at the provided URL:
 
         Title and Description:
-            make brief description of the project and its purpose from given overview:
-            {OVERVIEW}
+            make detailed description for the project and its purpose from given overview: {OVERVIEW}
         
         Badges for License:
         Include badges for license, last commit, top language, and language count.
@@ -178,8 +175,8 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
             Provide a brief overview of the project.
         
         Features:
-            Make highlight key features of the project from given features:
-            {FEATURES}
+           Make detailed description of highlight key features of the project from given features: {FEATURES}
+
             
         Repository Structure:
             Include a visual representation of the project structure.
