@@ -60,7 +60,7 @@ def get_technology_set(list_of_technologies):
     return extract_technologies
 
 
-def generate_readme(github_url, technology_list, badge_color, badge_style, license_type, emoji_status, overview, features):
+def generate_readme(github_url, technology_list, badge_color, badge_style, license_type, emoji_status, overview, features, file_structure):
     if emoji_status:
         readme_generate_prompt_template="""
             You are an expert at creating professional GitHub README files. 
@@ -104,6 +104,7 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
             
             Repository Structure:
                 Include a visual representation of the project structure.
+                {FILE_STRUCTURE}
             
             Modules:
                 List the main modules/files with a brief summary of their purpose.
@@ -180,6 +181,7 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
             
         Repository Structure:
             Include a visual representation of the project structure.
+            {FILE_STRUCTURE}
         
         Modules:
             List the main modules/files with a brief summary of their purpose.
@@ -217,13 +219,13 @@ def generate_readme(github_url, technology_list, badge_color, badge_style, licen
     readme_generate_prompt=ChatPromptTemplate.from_template(template=readme_generate_prompt_template)
         
     readme_generate_chain=(
-        {"GITHUB_URL" : RunnablePassthrough(), "TECHNOLOGY_LIST" : RunnablePassthrough(), "BADGE_COLOR": RunnablePassthrough(), "BADGE_STYLE": RunnablePassthrough(), "LICENSE_TYPE": RunnablePassthrough(), "OVERVIEW": RunnablePassthrough(), "FEATURES":RunnablePassthrough()} |
+        {"GITHUB_URL" : RunnablePassthrough(), "TECHNOLOGY_LIST" : RunnablePassthrough(), "BADGE_COLOR": RunnablePassthrough(), "BADGE_STYLE": RunnablePassthrough(), "LICENSE_TYPE": RunnablePassthrough(), "OVERVIEW": RunnablePassthrough(), "FEATURES":RunnablePassthrough(), "FILE_STRUCTURE":RunnablePassthrough()} |
         readme_generate_prompt |
         llm |
         StrOutputParser()
     )
     
-    generated_readme=readme_generate_chain.invoke({"GITHUB_URL" : github_url, "TECHNOLOGY_LIST": technology_list, "BADGE_COLOR" :badge_color, "BADGE_STYLE":badge_style, "LICENSE_TYPE" : license_type, "OVERVIEW":overview, "FEATURES": features})
+    generated_readme=readme_generate_chain.invoke({"GITHUB_URL" : github_url, "TECHNOLOGY_LIST": technology_list, "BADGE_COLOR" :badge_color, "BADGE_STYLE":badge_style, "LICENSE_TYPE" : license_type, "OVERVIEW":overview, "FEATURES": features, "FILE_STRUCTURE":file_structure})
     
     return generated_readme
 

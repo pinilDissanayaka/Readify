@@ -3,6 +3,7 @@ import streamlit as st
 from tempfile import TemporaryDirectory
 from utils.repo_handler import clone_github_repo, load_repo, summary_loaded_document
 from utils.prompt_handler import generate_readme
+from utils.file_structure import get_file_structure_dict
 
 generated_readme=""
 
@@ -41,7 +42,7 @@ with st.sidebar:
                 if clone_status:
                     technology_list=summary_loaded_document(documents=load_repo(local_path=temp_directory.name))
                     generated_readme=generate_readme(github_url=github_url, technology_list=technology_list, badge_color=badge_color, badge_style=badge_style, license_type=license_type, emoji_status=emoji_status, overview=overview, features=features)
-            
+                    file_structure=get_file_structure_dict(root_dir=temp_directory.name)
 
 
 if generated_readme !="":
@@ -52,10 +53,7 @@ if generated_readme !="":
         st.code(generated_readme, language="markdown")
         
     with st.expander("Download Markdown : "):
-        temp_dir=TemporaryDirectory()
-        with temp_dir:
-            file_name=os.path.join(temp_dir.name, "README.md")
-            st.download_button("Download README.md", data=generated_readme,  file_name="README.md", mime="text/markdown")
+        st.download_button("Download README.md", data=generated_readme,  file_name="README.md", mime="text/markdown")
 
 
 
